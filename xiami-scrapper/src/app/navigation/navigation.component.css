@@ -1,0 +1,24 @@
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mat-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.mat-radio-button {
+  margin: 15px;
+}

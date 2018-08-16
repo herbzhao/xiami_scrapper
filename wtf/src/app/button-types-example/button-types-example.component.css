@@ -1,0 +1,15 @@
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }

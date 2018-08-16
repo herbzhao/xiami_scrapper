@@ -1,0 +1,64 @@
+<div class = "container">
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <!-- make a choice between url_or_text, otherwise the form cannot proceed -->
+    <mat-step [completed]="ID_or_text">
+          <ng-template matStepLabel>Use ID or paste plain text</ng-template>
+          <!-- two way binding -->
+          <mat-radio-group [(ngModel)]="ID_or_text">
+              <mat-radio-button value="Playlist ID">Playlist ID</mat-radio-button>
+              <mat-radio-button value="Playlist text">Paste plain text</mat-radio-button>
+          </mat-radio-group>
+          <div>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+      </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Paste {{ID_or_text}} here</ng-template>
+      <div *ngIf="ID_or_text == 'Playlist ID'">
+        <mat-form-field>
+          <!-- the name attirbute is needed when using ngModel https://stackoverflow.com/questions/39313095/angular2-if-ngmodel-is-used-within-a-form-tag-either-the-name-attribute-must-be-->
+          <input [(ngModel)]="playlist_ID" name='playlist_ID' matInput placeholder="https://www.xiami.com/collect/?" required>
+        </mat-form-field>
+      </div>
+      
+      <div *ngIf="ID_or_text == 'Playlist text'" class = "">
+        <mat-form-field >
+          <input [(ngModel)]="special_symbols" name="special_symbols" matInput placeholder="special symbols" required>
+        </mat-form-field>
+        <br/> 
+        <mat-form-field>
+          <textarea [(ngModel)]="playlist_info" name="playlist_info" rows="20" matInput placeholder="copy paste the playlist" required></textarea>
+        </mat-form-field>
+      </div>
+        
+      <div>
+        <button mat-raised-button color="primary" matStepperNext (click)="post_to_server()">Parse the playlist now!</button>
+        <button mat-raised-button matStepperPrevious>Back</button>
+      </div>
+    </mat-step>
+
+    <mat-step [completed]="parsed_playlist">
+        <ng-template matStepLabel>Parsing your playlist - wait a bit!</ng-template>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext  (click)="get_from_server()">Ready!</button>
+          <!-- <button mat-raised-button matStepperPrevious>Back</button> -->
+        </div>
+  </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Your parsed playlist </ng-template>
+        <div>
+          <mat-form-field>
+            <textarea name="parsed_playlist" rows="20" matInput #ParsedPlaylist>{{parsed_playlist}}</textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-raised-button color="primary" (click)="copyInputMessage(ParsedPlaylist)">Copy to clipboard</button>
+        </div>
+    </mat-step>
+
+
+</mat-vertical-stepper>
+
+</div>
